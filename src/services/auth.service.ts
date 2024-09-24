@@ -2,6 +2,7 @@ import AppDataSource from "../data-source";
 import { User } from "../models";
 import { comparePassword, hashPassword } from "../utils";
 import { HttpError } from "../middlewares";
+import { formatUser } from "../utils/responsebody";
 
 export class AuthService {
 
@@ -42,9 +43,10 @@ export class AuthService {
         user.password = hashedPassword;
         
         const userCreated = await AppDataSource.manager.save(user);
+        const userResponse = formatUser(userCreated);
         return {
             message: "User created successfully",
-            user: userCreated,
+            user: userResponse,
         }
     }
 

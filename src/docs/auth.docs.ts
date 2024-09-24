@@ -54,7 +54,7 @@ export const signUp = `
  *                 status_code:
  *                   type: integer
  *                   example: 201
- *                 user:
+ *                 data:
  *                   type: object
  *                   properties:
  *                     id:
