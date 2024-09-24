@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swaggerConfig";
 import { errorHandler, routeNotFound } from "./middlewares";
+import { authRouter } from "./routes";
 
 
 // const CSS_URL =
@@ -36,6 +37,7 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
+app.use("/api/v1", authRouter);
 
 app.use("/openapi.json", (_req: Request, res: Response) => {
   res.setHeader("Content-Type", "application/json");
