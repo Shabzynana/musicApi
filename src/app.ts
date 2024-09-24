@@ -2,6 +2,7 @@ import cors from "cors";
 import express, { Express, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swaggerConfig";
+import { errorHandler, routeNotFound } from "./middlewares";
 
 
 // const CSS_URL =
@@ -42,4 +43,6 @@ app.use("/openapi.json", (_req: Request, res: Response) => {
 });
 
 
+app.use(errorHandler);
+app.use(routeNotFound);
 export default app;
