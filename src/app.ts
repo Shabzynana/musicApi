@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { Express, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swaggerConfig";
 
 
 // const CSS_URL =
@@ -24,7 +25,7 @@ app.use(
 // app.use(Limiter);
 app.use(express.json({ limit: "15mb" }));
 app.use(express.urlencoded({ limit: "15mb", extended: true }));
-// app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, { customCssUrl: CSS_URL }));
 
 
@@ -35,11 +36,10 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-
-// app.use("/openapi.json", (_req: Request, res: Response) => {
-//   res.setHeader("Content-Type", "application/json");
-//   res.send(swaggerSpec);
-// });
+app.use("/openapi.json", (_req: Request, res: Response) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
 
 
 export default app;
