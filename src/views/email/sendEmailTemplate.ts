@@ -11,7 +11,7 @@ Handlebars.registerPartial('base_template', baseTemplateSource);
 
 function renderTemplate(templateName:string, variables:{}) {
   const data = {
-    logoUrl: "https://i.imghippo.com/files/bOlgU1724265767.png",
+    logoUrl: "#",
     imageUrl: "https://example.com/reset-password.png",
     companyName: "Music App",
     supportUrl: "https://example.com/support",

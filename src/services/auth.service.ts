@@ -5,6 +5,7 @@ import { HttpError, ResourceNotFound } from "../middlewares";
 import { formatUser } from "../utils/responsebody";
 import jwt from "jsonwebtoken";
 import config from "../config";
+import sendEmailTemplate from "../views/email/sendEmailTemplate";
 
 export class AuthService {
 
@@ -33,7 +34,7 @@ export class AuthService {
             where: { username },
         });
         if (usernameExist) {
-            throw new Error("Username already exists");
+            throw new Error("Username already exist");
         }
         
         const hashedPassword = await hashPassword(password);
@@ -45,6 +46,18 @@ export class AuthService {
         user.password = hashedPassword;
         
         const userCreated = await AppDataSource.manager.save(user);
+
+        const sendToken = jwt.sign({ user_id: user.id }, config.TOKEN_SECRET, {expiresIn: "1h" });
+        const verifyUrl = `${config.BASE_URL}/api/v1/auth/verify_account?token=${sendToken}`;
+        await sendEmailTemplate({
+            to: email,
+            subject: "Verify your Email",
+            templateName: "verify_email",
+            variables: {
+              name: user?.last_name,
+              verifyUrl,
+            },
+          });
         const userResponse = formatUser(userCreated);
         return {
             message: "User created successfully",
