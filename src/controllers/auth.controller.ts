@@ -10,3 +10,9 @@ export const signUp = asyncHandler(async (req: Request, res: Response, next: Nex
     const { message, user } = await authService.signUp(req.body);
     sendJsonResponse(res, 201, message, user);
 });
+
+
+export const login = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const { message, user, access_token } = await authService.login(req.body);
+    sendJsonResponse(res, 200, message, { user, access_token });
+});

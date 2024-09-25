@@ -1,8 +1,10 @@
 import AppDataSource from "../data-source";
 import { User } from "../models";
 import { comparePassword, hashPassword } from "../utils";
-import { HttpError } from "../middlewares";
+import { HttpError, ResourceNotFound } from "../middlewares";
 import { formatUser } from "../utils/responsebody";
+import jwt from "jsonwebtoken";
+import config from "../config";
 
 export class AuthService {
 
@@ -49,6 +51,39 @@ export class AuthService {
             user: userResponse,
         }
     }
+
+    
+
+    public async login(payload: any ): Promise<{ message: string; user: Partial<User>; access_token: string; }> {
+
+        const { email, password } = payload;
+
+        const user = await this.userRepository.findOne({
+            where: { email },
+        });
+        if (!user) {
+            throw new ResourceNotFound("User not found" );
+        }
+
+        if (user.google_id && user.password === null) {
+            throw new HttpError(401, "User Created with Google");
+        }
+
+        const isPasswordValid = await comparePassword(password, user.password);
+        if (!isPasswordValid) {
+            throw new HttpError(401, "Invalid credentials");
+        }
+
+        const access_token = jwt.sign({ user_id: user.id },  config.TOKEN_SECRET, {
+            expiresIn: "1d" });
+        const userResponse = formatUser(user);
+        return {
+            message: "login successfull",
+            user: userResponse,
+            access_token
+        };
+    }
+    
 
 
 
