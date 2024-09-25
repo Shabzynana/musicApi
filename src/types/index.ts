@@ -6,6 +6,13 @@ export type UserResponsePayload = {
     last_name: string;
   };
 
-  export interface JwtPayload {
-    user_id: string;
-  }
+export interface JwtPayload {
+  user_id: string;
+}
+
+export interface EmailData {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}
