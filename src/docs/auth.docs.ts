@@ -158,3 +158,81 @@ export const login = `
  */
 `;
 
+
+export const verifyEmail = `
+/**
+ * @swagger
+ * /api/v1/auth/verify_email:
+ *   get:
+ *     summary: Verify a user's email
+ *     tags: [Authentication]
+ *     description: Verifies a user's email address using a verification token.
+ *     parameters:
+ *       - in: query
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Email verification token sent to the user's email
+ *         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+ *     responses:
+ *       200:
+ *         description: Email verified successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Email verified successfully
+ *                 status_code:
+ *                   type: integer
+ *                   example: 200
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: d7636d3d-b06e-4847-9072-9a376382ba22
+ *                     email:
+ *                       type: string
+ *                       format: email
+ *                       example: johndoe@example.com
+ *                     firstName:
+ *                       type: string
+ *                       example: John
+ *                     lastName:
+ *                       type: string
+ *                       example: Doe
+ *       400:
+ *         description: Invalid or expired token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Invalid or expired token
+ *                 status_code:
+ *                   type: integer
+ *                   example: 400
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User not found
+ *                 status_code:
+ *                   type: integer
+ *                   example: 404
+ */
+`;
+
+

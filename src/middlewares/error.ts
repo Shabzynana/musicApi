@@ -69,6 +69,7 @@ const errorHandler = (
 ) => {
   // Log the error object for debugging purposes
   log.error('Error caught by errorhandler:', err);
+  console.log('Error caught by errorhandler:', err)
 
   const { success, status_code, message } = err;
 

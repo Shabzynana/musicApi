@@ -1,11 +1,12 @@
 import AppDataSource from "../data-source";
 import { User } from "../models";
 import { comparePassword, hashPassword } from "../utils";
-import { HttpError, ResourceNotFound } from "../middlewares";
+import { HttpError, ResourceNotFound, Unauthorized } from "../middlewares";
 import { formatUser } from "../utils/responsebody";
 import jwt from "jsonwebtoken";
 import config from "../config";
 import sendEmailTemplate from "../views/email/sendEmailTemplate";
+import { JwtPayload } from "../types";
 
 export class AuthService {
 
@@ -48,7 +49,7 @@ export class AuthService {
         const userCreated = await AppDataSource.manager.save(user);
 
         const sendToken = jwt.sign({ user_id: user.id }, config.TOKEN_SECRET, {expiresIn: "1h" });
-        const verifyUrl = `${config.BASE_URL}/api/v1/auth/verify_account?token=${sendToken}`;
+        const verifyUrl = `${config.BASE_URL}/api/v1/auth/verify_email?token=${sendToken}`;
         await sendEmailTemplate({
             to: email,
             subject: "Verify your Email",
@@ -96,8 +97,39 @@ export class AuthService {
             access_token
         };
     }
-    
 
+    public async verifyEmail(token: string): Promise<{ message: string; user: Partial<User>; }> {
+        try {
+            const payload = jwt.verify(token, config.TOKEN_SECRET) as JwtPayload;
+            const user = await this.userRepository.findOne({
+                where: { id: payload["user_id"] as string },
+            });
+            console.log(user, 'user')
+            if (!user) {
+                throw new HttpError(404, "User not Found");
+            }
+        
+            user.is_verified = true;
+            user.is_verified_date = new Date();
+            await this.userRepository.save(user);
+            console.log(user, "verified User")
+            return {
+                message: "Email verified successfully",
+                user: formatUser(user),
+            };
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                throw new Unauthorized("Token has expired");
+              } else if (error.name === 'JsonWebTokenError') {
+                throw new Unauthorized("Invalid token");
+              } else {
+                if(error instanceof HttpError) {
+                        throw error;
+                    } 
+                }
+            } 
+    }
+    
 
 
 }    

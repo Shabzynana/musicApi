@@ -16,3 +16,14 @@ export const login = asyncHandler(async (req: Request, res: Response, next: Next
     const { message, user, access_token } = await authService.login(req.body);
     sendJsonResponse(res, 200, message, { user, access_token });
 });
+
+
+export const verifyEmail = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.query.token as string;
+    if (!token) {
+        return sendJsonResponse(res, 400, "Token is required");
+    }
+
+    const { message, user } = await authService.verifyEmail(token);
+    sendJsonResponse(res, 200, message, user );
+})
