@@ -7,8 +7,10 @@ import { Sendmail } from "./mail";
 const retries: number = 2;
 const delay: number = 1000 * 30;
 
+  
 const redisConfig = {
   host: config.REDIS_HOST,
+  password: config.REDIS_PASSWORD,
   port: Number(config.REDIS_PORT),
 };
 
