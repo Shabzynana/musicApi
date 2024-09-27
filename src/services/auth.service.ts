@@ -66,7 +66,6 @@ export class AuthService {
         }
     }
 
-    
 
     public async login(payload: any ): Promise<{ message: string; user: Partial<User>; access_token: string; }> {
 
@@ -130,6 +129,18 @@ export class AuthService {
             } 
     }
     
+
+    public async currentUser(id: string): Promise<{message: string; data: Partial<User>}> {
+        const current_user = await this.userRepository.findOne({
+            where: { id },
+        });
+        if (!current_user) {
+            throw new ResourceNotFound("User not found");
+        }
+        return {message: "Current user fetched successfully", data: formatUser(current_user)};
+    }
+
+
 
 
 }    
