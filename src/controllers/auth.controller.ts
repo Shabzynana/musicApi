@@ -27,3 +27,9 @@ export const verifyEmail = asyncHandler(async (req: Request, res: Response, next
     const { message, user } = await authService.verifyEmail(token);
     sendJsonResponse(res, 200, message, user );
 })
+
+export const currentUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.user.user_id
+    const { message, data } = await authService.currentUser(id);
+    sendJsonResponse(res, 200, message, data);
+})
