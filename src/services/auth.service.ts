@@ -1,7 +1,7 @@
 import AppDataSource from "../data-source";
 import { User } from "../models";
 import { comparePassword, hashPassword } from "../utils";
-import { HttpError, ResourceNotFound, Unauthorized } from "../middlewares";
+import { HttpError, ResourceNotFound, Unauthorized, Conflict } from "../middlewares";
 import { formatUser } from "../utils/responsebody";
 import jwt from "jsonwebtoken";
 import config from "../config";
@@ -28,14 +28,14 @@ export class AuthService {
                   "Account associated with these email has been deleted. Please contact support for assistance.",
                 );
               }
-            throw new Error("User already exists");
+            throw new Conflict("User already exists");
         }
 
         const usernameExist = await this.userRepository.findOne({
             where: { username },
         });
         if (usernameExist) {
-            throw new Error("Username already exist");
+            throw new Conflict("Username already exist");
         }
         
         const hashedPassword = await hashPassword(password);
@@ -49,7 +49,7 @@ export class AuthService {
         const userCreated = await AppDataSource.manager.save(user);
 
         const sendToken = jwt.sign({ user_id: user.id }, config.TOKEN_SECRET, {expiresIn: "1h" });
-        const verifyUrl = `${config.BASE_URL}/api/v1/auth/verify_email?token=${sendToken}`;
+        const verifyUrl = `${config.BASE_URL}/verify_email?token=${sendToken}`;
         await sendEmailTemplate({
             to: email,
             subject: "Verify your Email",
