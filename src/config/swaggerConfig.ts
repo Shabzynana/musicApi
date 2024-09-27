@@ -15,7 +15,7 @@ const swaggerDefinition: SwaggerDefinition = {
       description: "Local server",
     },
     {
-      url: `https://polling-api-4p2v.onrender.com/`,
+      url: `https://marco-pzbx.onrender.com/`,
       description: "Production server",
     }
   ],
