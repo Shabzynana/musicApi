@@ -14,6 +14,10 @@ const swaggerDefinition: SwaggerDefinition = {
       url: `http://localhost:${config.port}/`,
       description: "Local server",
     },
+    {
+      url: `https://polling-api-4p2v.onrender.com/`,
+      description: "Production server",
+    }
   ],
   tags: [
     {
