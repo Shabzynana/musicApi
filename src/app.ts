@@ -29,7 +29,7 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", (req: Request, res: Response) => {
   res.send({
-    message: "I am the express API responding for Polling System",
+    message: "I am the express API responding for MusicApi",
   });
 });
 
