@@ -5,9 +5,9 @@ import { version } from "../../package.json";
 const swaggerDefinition: SwaggerDefinition = {
   openapi: "3.1.0",
   info: {
-    title: "Polling System API with Swagger",
+    title: "MusicApp API with Swagger",
     version: version,
-    description: "OpenApi documentaiton for the Polling System project",
+    description: "OpenApi documentaiton for the MusicApp project",
   },
   servers: [
     {
