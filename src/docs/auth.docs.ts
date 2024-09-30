@@ -162,7 +162,7 @@ export const login = `
 export const verifyEmail = `
 /**
  * @swagger
- * /api/v1/auth/verify_email:
+ * /api/v1/auth/verify-email:
  *   get:
  *     summary: Verify a user's email
  *     tags: [Authentication]
@@ -239,7 +239,7 @@ export const verifyEmail = `
 export const currentUser = `
 /**
  * @swagger
- * /api/v1/auth/current_user:
+ * /api/v1/auth/current-user:
  *   get:
  *     summary: Get current authenticated user
  *     tags: [Authentication]
@@ -297,4 +297,71 @@ export const currentUser = `
 `;
 
 
-
+export const forgotPassword = `
+/**
+ * @swagger
+ * /api/v1/auth/forgot-password:
+ *   post:
+ *     summary: Forgot password
+ *     tags: [Authentication]
+ *     description: Sends a password reset link to the provided email address.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: johndoe@example.com
+ *     responses:
+ *       200:
+ *         description: Password reset link sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Password reset link sent to your email
+ *                 status_code:
+ *                   type: integer
+ *                   example: 200
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: d7636d3d-b06e-4847-9072-9a376382ba22
+ *                     email:
+ *                       type: string
+ *                       format: email
+ *                       example: johndoe@example.com
+ *                     first_name:
+ *                       type: string
+ *                       example: John
+ *                     last_name:
+ *                       type: string
+ *                       example: Doe
+ *                     username:
+ *                       type: string
+ *                       example: johndoe
+ *       400:
+ *         description: Bad Request - Email is required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Email is required
+ *                 status_code:
+ *                   type: integer
+ *                   example: 400
+ */
+`;
