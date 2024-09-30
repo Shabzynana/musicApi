@@ -119,14 +119,14 @@ export class AuthService {
         } catch (error) {
             if (error.name === 'TokenExpiredError') {
                 throw new Unauthorized("Token has expired");
-              } else if (error.name === 'JsonWebTokenError') {
+            } else if (error.name === 'JsonWebTokenError') {
                 throw new Unauthorized("Invalid token");
-              } else {
+            } else {
                 if(error instanceof HttpError) {
-                        throw error;
-                    } 
-                }
-            } 
+                    throw error;
+                } 
+            }
+        } 
     }
     
 
