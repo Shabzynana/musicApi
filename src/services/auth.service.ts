@@ -137,9 +137,36 @@ export class AuthService {
         if (!current_user) {
             throw new ResourceNotFound("User not found");
         }
-        return {message: "Current user fetched successfully", data: formatUser(current_user)};
+        return {
+            message: "Current user fetched successfully", 
+            data: formatUser(current_user)
+        };
     }
 
+    public async forgotPassword(email: string): Promise<{message: string; data: Partial<User>}> {
+        const user = await this.userRepository.findOne({
+            where: { email },
+        });
+        if (!user) {
+            throw new ResourceNotFound("User not found");
+        }
+        const sendToken = jwt.sign({ user_id: user.id }, config.TOKEN_SECRET, {expiresIn: "1h" });
+        const resetUrl = `${config.BASE_URL}/reset_password?token=${sendToken}`;
+        await sendEmailTemplate({
+            to: email,
+            subject: "Reset your password",
+            templateName: "password-reset",
+            variables: {
+              name: user?.last_name,
+              resetUrl,
+            },  
+        });  
+        
+        return { 
+            message: "Password reset link sent to your email", 
+            data: formatUser(user)
+        }
+    }
 
 
 

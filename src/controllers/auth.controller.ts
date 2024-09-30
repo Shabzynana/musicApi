@@ -33,3 +33,15 @@ export const currentUser = asyncHandler(async (req: Request, res: Response, next
     const { message, data } = await authService.currentUser(id);
     sendJsonResponse(res, 200, message, data);
 })
+
+
+export const forgotPassword = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const {email} = req.body;
+    if (!email) {
+        return sendJsonResponse(res, 400, "Email is required");
+    }
+
+    const { message, data } = await authService.forgotPassword(email);
+    sendJsonResponse(res, 200, message, data);
+    
+})
