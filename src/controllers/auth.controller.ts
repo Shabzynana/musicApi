@@ -45,3 +45,16 @@ export const forgotPassword = asyncHandler(async (req: Request, res: Response, n
     sendJsonResponse(res, 200, message, data);
     
 })
+
+
+export const resetPassword = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.query.token as string;
+    const { new_password, confirm_password } = req.body;
+
+    if (!token) {
+        return sendJsonResponse(res, 400, "Token is required");
+    }
+
+    const { message, data } = await authService.resetPassword(token, new_password, confirm_password);
+    sendJsonResponse(res, 200, message, data );
+})
