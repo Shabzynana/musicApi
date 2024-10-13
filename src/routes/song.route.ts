@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { likeSong } from "../controllers";
+import { likeSong, getLikedSongs } from "../controllers";
 import { authMiddleware } from "../middlewares";
 
 const songRouter = Router();
@@ -10,5 +10,11 @@ songRouter.post(
     "/song/like",
     likeSong
 )
+
+songRouter.get(
+    "/user/liked-songs",
+    getLikedSongs
+)
+
 
 export { songRouter }

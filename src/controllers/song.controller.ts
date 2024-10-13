@@ -11,3 +11,10 @@ export const likeSong = asyncHandler(async (req: Request, res: Response, next: N
     const { message, data } = await songService.likeSong(userId, songId);
     sendJsonResponse(res, 201, message, data);
 })
+
+export const getLikedSongs = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    
+    const userId  = req.user.user_id;
+    const { message, data } = await songService.getLikedSongs(userId);
+    sendJsonResponse(res, 200, message, data);
+})
