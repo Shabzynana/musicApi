@@ -3,6 +3,7 @@ import { IsEmail } from "class-validator";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne} from "typeorm";
 import { getIsInvalidMessage } from "../utils";
 import ExtendedBaseEntity from "../base-entity";
+import { UserPlaylist, UserSong } from ".";
 @Entity({ name: "users" })
 export class User extends ExtendedBaseEntity {
 
@@ -37,5 +38,11 @@ export class User extends ExtendedBaseEntity {
   // Soft delete flag
   @Column({ default: false })
   is_deleted: boolean;
+
+  @OneToMany(() => UserPlaylist, (userPlaylist) => userPlaylist.user)
+  likedPlaylists: UserPlaylist[];
+
+  @OneToMany(() => UserSong, (userSong) => userSong.user)
+  likedSongs: UserSong[];
 
 }
