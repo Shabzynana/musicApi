@@ -6,6 +6,13 @@ export type UserResponsePayload = {
     last_name: string;
   };
 
+export type LikedSongsResponsePayload = {
+
+    id: string;
+    songId: number;
+    // user: UserResponsePayload;
+}  
+
 export interface JwtPayload {
   user_id: string;
 }

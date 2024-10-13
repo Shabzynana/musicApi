@@ -48,3 +48,56 @@ export const likeSong = `
  *                   example: 400
  */
 `;
+
+
+export const getLikedSongs = `
+/**
+ * @swagger
+ * /api/v1/user/liked-songs:
+ *   get:
+ *     summary: Get a user liked songs
+ *     tags: [Song]
+ *     description: Fetches a list of songs liked by the authenticated user.
+ *     security:
+ *       - bearerAuth: [] # Assuming JWT authentication is used
+ *     responses:
+ *       200:
+ *         description: List of liked songs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Liked songs fetched successfully
+ *                 status_code:
+ *                   type: integer
+ *                   example: 200
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         example: "abcd1234-efgh-5678-ijkl-9012mnop3456"
+ *                       songIs:
+ *                         type: number
+ *                         example: 123456789
+ *       401:
+ *         description: Unauthorized - Authentication token missing or invalid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *                 status_code:
+ *                   type: integer
+ *                   example: 401
+ */
+`;
+
