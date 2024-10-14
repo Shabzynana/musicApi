@@ -3,7 +3,7 @@ import express, { Express, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swaggerConfig";
 import { errorHandler, routeNotFound } from "./middlewares";
-import { authRouter, userRouter, songRouter } from "./routes";
+import { authRouter, userRouter, songRouter, playlistRouter } from "./routes";
 
 
 const app: Express = express();
@@ -37,6 +37,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/v1", authRouter);
 app.use("/api/v1", userRouter);
 app.use("/api/v1", songRouter);
+app.use("/api/v1", playlistRouter);
 
 app.use("/openapi.json", (_req: Request, res: Response) => {
   res.setHeader("Content-Type", "application/json");

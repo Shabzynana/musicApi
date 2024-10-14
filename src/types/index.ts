@@ -19,6 +19,13 @@ export type LikedSongResponse = {
   user: UserResponsePayload;
 } 
 
+
+export type LikedPlaylistResponse = {
+
+  id: string;
+  playlistId: number;
+}
+
 export interface JwtPayload {
   user_id: string;
 }

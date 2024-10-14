@@ -1,5 +1,5 @@
-import { User, UserSong } from "../models";
-import { UserResponsePayload, LikedSongsResponsePayload, LikedSongResponse } from "../types";
+import { User, UserSong, UserPlaylist } from "../models";
+import { UserResponsePayload, LikedSongsResponsePayload, LikedSongResponse, LikedPlaylistResponse } from "../types";
 
 
 export const formatUser = (user: User): UserResponsePayload => {
@@ -26,6 +26,14 @@ export const formatLikedSongResponse = (likedSong: UserSong): LikedSongResponse 
       songId: Number(likedSong.songId),
   }
 }
+
+export const formatLikedPlaylist = (likedPlaylist: UserPlaylist): LikedPlaylistResponse => {
+  return {
+      id: likedPlaylist.id,
+      playlistId: Number(likedPlaylist.playlistId),
+  }
+}
+
 
 
 
