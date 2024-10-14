@@ -13,3 +13,12 @@ export const likePlaylist = asyncHandler(async (req: Request, res: Response, nex
     sendJsonResponse(res, 201, message, data);
 
 })
+
+
+export const getUserLikedPlaylist = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    const userId  = req.user.user_id;
+    const { message, data } = await playlistService.getUserLikedPlaylist(userId);
+    sendJsonResponse(res, 200, message, data);
+    
+})
