@@ -446,3 +446,63 @@ export const resetPassword = `
  *                   example: 400
  */
 `;
+
+export const resendVerificationEmail = `
+/**
+ * @swagger
+ * /api/v1/auth/resend-verification-email:
+ *   post:
+ *     summary: Resend email verification link
+ *     tags: [Authentication]
+ *     description: Sends a new verification email to the authenticated user.
+ *     security:
+ *       - bearerAuth: [] # Assuming JWT authentication is used
+ *     responses:
+ *       200:
+ *         description: Verification email resent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Verification email resent successfully
+ *                 status_code:
+ *                   type: integer
+ *                   example: 200
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: d7636d3d-b06e-4847-9072-9a376382ba22
+ *                     email:
+ *                       type: string
+ *                       format: email
+ *                       example: johndoe@example.com
+ *                     first_name:
+ *                       type: string
+ *                       example: John
+ *                     last_name:
+ *                       type: string
+ *                       example: Doe
+ *                     username:
+ *                       type: string
+ *                       example: johndoe
+ *       401:
+ *         description: Unauthorized - Authentication token missing or invalid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *                 status_code:
+ *                   type: integer
+ *                   example: 401
+ */
+`;

@@ -203,10 +203,35 @@ export class AuthService {
                     throw error;
                 } 
             }      
-        }
-
-        
+        }    
     }
+
+
+    public async resendVerificationEmail(id: string): Promise<{message: string; data: Partial<User>}> {
+        const user = await this.userRepository.findOne({
+            where: { id },
+        });
+        if (!user) {
+            throw new ResourceNotFound("User not found");
+        }
+        const sendToken = jwt.sign({ user_id: user.id }, config.TOKEN_SECRET, {expiresIn: "1h" });
+        const verifyUrl = `${config.BASE_URL}/verify-email?token=${sendToken}`;
+        await sendEmailTemplate({
+            to: user.email,
+            subject: "Verify your email",
+            templateName: "verify_email",
+            variables: {
+              name: user?.last_name,
+              verifyUrl,
+            },  
+        });  
+        
+        return { 
+            message: "Verification email resent successfully",
+            data: formatUser(user)
+        }
+    }
+
 
 
 

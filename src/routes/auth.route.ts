@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { signUp, login, verifyEmail, currentUser, forgotPassword, resetPassword } from "../controllers";
+import { signUp, login, verifyEmail, currentUser, forgotPassword, resetPassword, resendVerificationEmail } from "../controllers";
 import { authMiddleware } from "../middlewares";
 
 const authRouter = Router();
@@ -29,6 +29,12 @@ authRouter.post(
 authRouter.post(
     "/auth/reset-password",
     resetPassword
+)
+
+authRouter.post(
+    "/auth/resend-verification-email",
+    authMiddleware,
+    resendVerificationEmail
 )
 
 
