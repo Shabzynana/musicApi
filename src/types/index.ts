@@ -4,6 +4,7 @@ export type UserResponsePayload = {
     email: string;
     first_name: string;
     last_name: string;
+    is_verified: boolean;
   };
 
 export type LikedSongResponse = {
