@@ -10,8 +10,14 @@ export type LikedSongsResponsePayload = {
 
     id: string;
     songId: number;
-    // user: UserResponsePayload;
 }  
+
+export type LikedSongResponse = {
+
+  id: string;
+  songId: number;
+  user: UserResponsePayload;
+} 
 
 export interface JwtPayload {
   user_id: string;
