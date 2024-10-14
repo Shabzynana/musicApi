@@ -1,8 +1,8 @@
 import AppDataSource from "../data-source";
 import { UserSong, User } from "../models";
 import { ResourceNotFound } from "../middlewares";
-import { formatLikedSong } from "../utils/responsebody";
-import { LikedSongsResponsePayload } from "../types";
+import { formatLikedSong, formatLikedSongResponse } from "../utils/responsebody";
+import { LikedSongsResponsePayload, LikedSongResponse } from "../types";
 
 
 export class SongService {
@@ -10,7 +10,7 @@ export class SongService {
     public userRepository = AppDataSource.getRepository(User);
     public userSongRepository = AppDataSource.getRepository(UserSong);
 
-    public async likeSong(userId: string, songId: string): Promise<{message: string, data: Partial<UserSong>}> {
+    public async likeSong(userId: string, songId: string): Promise<{message: string, data: LikedSongResponse}> {
 
         const user = await this.userRepository.findOne({
             where: { id: userId },
@@ -26,7 +26,7 @@ export class SongService {
         const likedsong = await this.userSongRepository.save(song);
         return {
             message: "Song liked successfully",
-            data: likedsong
+            data: formatLikedSongResponse(likedsong)
         };
     }
 
