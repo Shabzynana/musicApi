@@ -29,6 +29,25 @@ export class PlaylistService {
         };
     }
 
+    public async getUserLikedPlaylist(userId: string): Promise<{message: string, data: LikedPlaylistResponse[]}> {
+
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+        });
+        if (!user) {
+            throw new ResourceNotFound("User not found");
+        }
+        const likedPlaylist = await this.userPlaylistRepository.find({
+            where: { user: { id: userId } },
+        });
+
+        const formattedLikedPlaylist = likedPlaylist.map(playlist => formatLikedPlaylist(playlist));
+        return {
+            message: "Liked playlists retrieved successfully",
+            data: formattedLikedPlaylist
+        };
+    }    
+
 
 
 

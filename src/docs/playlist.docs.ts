@@ -70,3 +70,55 @@ export const likPlaylist = `
  *                   example: 401
  */
 `;
+
+
+export const getUserLikedPlaylist = `
+/**
+ * @swagger
+ * /api/v1/user/liked-playlists:
+ *   get:
+ *     summary: Get user liked playlists
+ *     tags: [Playlist]
+ *     description: Retrieves a list of playlists that the authenticated user has liked.
+ *     security:
+ *       - bearerAuth: [] # Assuming JWT authentication is used
+ *     responses:
+ *       200:
+ *         description: A list of a user liked playlists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Liked playlists fetched successfully
+ *                 status_code:
+ *                   type: integer
+ *                   example: 200
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         example: "abcd1234-efgh-5678-ijkl-9012mnop3456"
+ *                       playlistId:
+ *                         type: interrger
+ *                         example: 123456789
+ *       401:
+ *         description: Unauthorized - Authentication token missing or invalid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *                 status_code:
+ *                   type: integer
+ *                   example: 401
+ */
+`;
