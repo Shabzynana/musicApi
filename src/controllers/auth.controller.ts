@@ -58,3 +58,13 @@ export const resetPassword = asyncHandler(async (req: Request, res: Response, ne
     const { message, data } = await authService.resetPassword(token, new_password, confirm_password);
     sendJsonResponse(res, 200, message, data );
 })
+
+
+export const resendVerificationEmail = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    const id = req.user.user_id;
+    console.log(id, "id")
+    const { message, data } = await authService.resendVerificationEmail(id);
+    sendJsonResponse(res, 200, message, data);
+    
+})
