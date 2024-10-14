@@ -32,7 +32,13 @@ export const likeSong = `
  *                   example: 201
  *                 data:
  *                   type: object
- *                   additionalProperties: true
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: "abcd1234-efgh-5678-ijkl-9012mnop3456"
+ *                     songId:
+ *                       type: interger
+ *                       example: 123456789
  *       400:
  *         description: Bad Request - Song ID is required
  *         content:
@@ -82,7 +88,7 @@ export const getLikedSongs = `
  *                       id:
  *                         type: string
  *                         example: "abcd1234-efgh-5678-ijkl-9012mnop3456"
- *                       songIs:
+ *                       songId:
  *                         type: number
  *                         example: 123456789
  *       401:

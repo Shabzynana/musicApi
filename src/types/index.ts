@@ -6,18 +6,11 @@ export type UserResponsePayload = {
     last_name: string;
   };
 
-export type LikedSongsResponsePayload = {
+export type LikedSongResponse = {
 
     id: string;
     songId: number;
 }  
-
-export type LikedSongResponse = {
-
-  id: string;
-  songId: number;
-  user: UserResponsePayload;
-} 
 
 
 export type LikedPlaylistResponse = {
